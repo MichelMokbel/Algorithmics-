@@ -1,0 +1,47 @@
+
+
+
+Function CountingSort(Arr[1...n], Exp):
+    MaxDigit = 9  // Maximum possible digit is 9
+    Initialize Count[0...MaxDigit] to 0
+    Initialize Output[1...n]
+    
+    // Count the occurrences of digits
+    For i = 1 to n
+        Digit = (Arr[i] / Exp) % 10
+        Count[Digit] = Count[Digit] + 1
+    
+    // Update Count array such that each element at index i stores 
+    // the sum of previous counts
+    For i = 1 to MaxDigit
+        Count[i] = Count[i] + Count[i - 1]
+    
+    // Build the output array
+    For i = n down to 1
+        Digit = (Arr[i] / Exp) % 10
+        Output[Count[Digit]] = Arr[i]
+        Count[Digit] = Count[Digit] - 1
+    
+    // Copy the output array to Arr, so that Arr now contains
+    // sorted numbers according to current digit
+    For i = 1 to n
+        Arr[i] = Output[i]
+
+Function RadixSort(Arr[1...n]):
+    // Find the maximum number to know the number of digits
+    MaxVal = max(Arr[1...n])
+    
+    // Do counting sort for every digit
+    Exp = 1
+    While MaxVal / Exp > 0
+        CountingSort(Arr, Exp)
+        Exp = Exp * 10
+
+// Example Usage
+Arr = [170, 45, 75, 90, 802, 24, 2, 66]
+RadixSort(Arr)
+Print(Arr)
+
+
+
+f
