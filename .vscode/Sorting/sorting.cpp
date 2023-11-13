@@ -24,7 +24,7 @@ public:
     // Selection sort
     void selectionSort(T *tab, int n);
     void inverseSelectionSort(T *tab, int n);
-    
+
     // Insertion sort
     void insertionSort(T *tab, int n);
     void inverseInsertionSort(T *tab, int n);
@@ -49,7 +49,6 @@ public:
     // Quick sort
     void QuickSort(T *tab, int inf, int sup);
     int Partition(T *tab, int inf, int sup);
-    
 };
 
 // Selection sort
@@ -68,6 +67,12 @@ void sorting<T>::selectionSort(T *tab, int n)
         Tmp = tab[i];
         tab[i] = tab[min];
         tab[min] = Tmp;
+
+        // Stable version
+        // T tmp = tab[min];
+        // for (int k = min; k > i; k--)
+        //     tab[k] = tab[k - 1];
+        // tab[i] = tmp;
     }
 }
 
