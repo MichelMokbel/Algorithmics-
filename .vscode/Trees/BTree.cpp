@@ -41,6 +41,9 @@ public:
     void insert(const Element &d);
     void remove(const Element &d);
     void print() const;
+
+
+
 };
 
 template <class Element>

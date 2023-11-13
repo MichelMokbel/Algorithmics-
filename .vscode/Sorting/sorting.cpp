@@ -262,6 +262,7 @@ void sorting<T>::Merge(T *Tab, T *tmpTab, int left, int mid, int right)
             Tab[k] = tmpTab[right--];
 }
 
+// Quick sort
 template <class T>
 void sorting<T>::QuickSort(T *tab, int inf, int sup)
 {
