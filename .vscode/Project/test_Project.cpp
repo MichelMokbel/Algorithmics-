@@ -154,9 +154,9 @@ int main()
     // int n3 = sizeof(arr3) / sizeof(arr3[0]);
     // radixSort(arr3, n3);
 
-    // int arr4[] = {1235, 0, 1, 555, 1899, 42};
-    // int n4 = sizeof(arr4) / sizeof(arr4[0]);
-    // radixSort(arr4, n4);
+    int arr4[] = {1235, 0, 1, 555, 1899, 42};
+    int n4 = sizeof(arr4) / sizeof(arr4[0]);
+    radixSort(arr4, n4);
 
     // int arr[] = {10, 45, 75, 90, 82, 24, 2, 66};
     // int n = sizeof(arr) / sizeof(arr[0]);
