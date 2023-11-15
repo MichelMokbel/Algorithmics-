@@ -142,41 +142,25 @@ void radixSort(int *arr, int n)
 
 int main()
 {
-    int arr1[] = {170, 45, 75, 90, 802, 24, 2, 66};
-    int n1 = sizeof(arr1) / sizeof(arr1[0]);
-    radixSort(arr1, n1);
+    // int arr1[] = {170, 45, 75, 90, 802, 24, 2, 66};
+    // int n1 = sizeof(arr1) / sizeof(arr1[0]);
+    // radixSort(arr1, n1);
 
-    int arr2[] = {9, 8, 7, 6, 5, 4, 3, 2, 1, 0};
-    int n2 = sizeof(arr2) / sizeof(arr2[0]);
-    radixSort(arr2, n2);
+    // int arr2[] = {9, 8, 7, 6, 5, 4, 3, 2, 1, 0};
+    // int n2 = sizeof(arr2) / sizeof(arr2[0]);
+    // radixSort(arr2, n2);
 
-    int arr3[] = {1, 3, 5, 7, 9, 2, 4, 6, 8, 0};
-    int n3 = sizeof(arr3) / sizeof(arr3[0]);
-    radixSort(arr3, n3);
+    // int arr3[] = {1, 3, 5, 7, 9, 2, 4, 6, 8, 0};
+    // int n3 = sizeof(arr3) / sizeof(arr3[0]);
+    // radixSort(arr3, n3);
 
-    int arr4[] = {1235, 0, 1, 555, 1899, 42};
-    int n4 = sizeof(arr4) / sizeof(arr4[0]);
-    radixSort(arr4, n4);
+    // int arr4[] = {1235, 0, 1, 555, 1899, 42};
+    // int n4 = sizeof(arr4) / sizeof(arr4[0]);
+    // radixSort(arr4, n4);
 
-    cout << "All test cases passed!" << endl;
+    // int arr[] = {10, 45, 75, 90, 82, 24, 2, 66};
+    // int n = sizeof(arr) / sizeof(arr[0]);
+    // countingSort(arr, n);
 
     return 0;
 }
-
-// int main()
-// {
-//     int arr[] = {
-//         170,
-//         45,
-//         75,
-//         90,
-//         802,
-//         24,
-//         2,
-//         66};
-//     int n = sizeof(arr) / sizeof(arr[0]);
-
-//     radixSort(arr, n);
-
-//     return 0;
-// }
