@@ -141,8 +141,10 @@ void sorting<T>::bubbleSort(T *tab, int n)
 {
     int i, j;
     T tmp;
+    bool swapped;
     for (i = 0; i < n - 1; i++)
     {
+        swapped = false;
         for (j = n - 1; j > i; j--)
         {
             if (tab[j] < tab[j - 1])
@@ -150,10 +152,29 @@ void sorting<T>::bubbleSort(T *tab, int n)
                 tmp = tab[j];
                 tab[j] = tab[j - 1];
                 tab[j - 1] = tmp;
+                swapped = true;
             }
         }
+
+        if(swapped == false)
+            return;
     }
 }
+
+template <class T>
+// void sorting<T>::bubbleSort(T *tab, int n)
+// {
+//     T tmp;
+//     if(n == 1)
+//         return;
+//     for(int i = n - 1; i > 0; i--){
+//         if(tab[i]<tab[i-1])
+//             tmp = tab[i];
+//             tab[i] = tab[i-1];
+//             tab[i-1] = tmp;
+//     }
+//     bubbleSort(tab, n - 1)
+// }
 
 // Inverse bubble sort
 template <class T>
@@ -304,3 +325,4 @@ int sorting<T>::Partition(T *tab, int inf, int sup)
     tab[inf] = temp;
     return i;
 }
+
