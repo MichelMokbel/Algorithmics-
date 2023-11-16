@@ -12,6 +12,7 @@ private:
     int getMax(int *arr, int n);
     void radixCountingSort(int *arr, int n, int exp);
     void printArray(int arr[], int n, string msg);
+    void countingSort(int *arr, int n);
 };
 
 int getMax(int *arr, int n)
@@ -25,6 +26,18 @@ int getMax(int *arr, int n)
         }
     }
     return maxVal;
+}
+
+int search(int *arr, int n, int m)
+{
+    for (int i = 1; i < n; i++)
+    {
+        if (arr[i] == m)
+        {
+            return i;
+        }
+    }
+    return -1;;
 }
 
 void printArray(int arr[], int n, string msg)
@@ -54,16 +67,19 @@ void countingSort(int *arr, int n)
         C[i] = 0;
     }
     printArray(C, maxVal + 1, "Initialized Count Array");
+
     for (int j = 0; j < n; j++)
     {
         C[A[j]] = C[A[j]] + 1;
     }
     printArray(C, maxVal + 1, "Populated Count Array");
+
     for (int i = 1; i <= maxVal; i++)
     {
         C[i] = C[i] + C[i - 1];
     }
     printArray(C, maxVal + 1, "Modified Count Array");
+
     for (int j = n - 1; j >= 0; j--)
     {
         B[C[A[j]] - 1] = A[j];
@@ -144,7 +160,7 @@ int main()
 {
     // int arr1[] = {170, 45, 75, 90, 802, 24, 2, 66};
     // int n1 = sizeof(arr1) / sizeof(arr1[0]);
-    // radixSort(arr1, n1);
+    // countingSort(arr1, n1);
 
     // int arr2[] = {9, 8, 7, 6, 5, 4, 3, 2, 1, 0};
     // int n2 = sizeof(arr2) / sizeof(arr2[0]);
