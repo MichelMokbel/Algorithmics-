@@ -37,7 +37,7 @@ int search(int *arr, int n, int m)
             return i;
         }
     }
-    return -1;;
+    return -1;
 }
 
 void printArray(int arr[], int n, string msg)
