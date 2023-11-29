@@ -47,7 +47,7 @@ public:
             int i = 0;
             int l = 0;
             int hash = (x % size);
-            if (arr[hash] == '\0')
+            if (arr[hash] == -1)
             {
                 arr[hash] = x;
                 nbr++;
@@ -57,7 +57,7 @@ public:
                 for (i = 0; i <= size - 1; i++)
                 {
                     l = (hash + i) % size;
-                    if (arr[l] == '\0')
+                    if (arr[l] == -1)
                     {
                         arr[l] = x;
                         nbr++;
@@ -72,7 +72,7 @@ public:
             int i = 0;
             int l = 0;
             int hash = (x % size);
-            if (arr[hash] == '\0')
+            if (arr[hash] == -1)
             {
                 arr[hash] = x;
                 nbr++;
@@ -82,7 +82,7 @@ public:
                 for (i = 0; i <= size - 1; i++)
                 {
                     l = (hash + (i * i)) % size;
-                    if (arr[l] == '\0')
+                    if (arr[l] == -1)
                     {
                         arr[l] = x;
                         nbr++;
@@ -94,17 +94,6 @@ public:
         }
         // }
     }
-
-    int insertString(const string &key)
-    {
-        int value = 0;
-        for (int i = key.size() - 1; i >= 0; --i)
-        {
-            value = 33 * value + key[i];
-        }
-        return value % size;
-    }
-
     void displayElts()
     {
         for (int i = 0; i < size; i++)
