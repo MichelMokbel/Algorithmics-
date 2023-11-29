@@ -17,15 +17,18 @@ public:
         size = s;
         nbr = 0;
         method = M;
-
+        for (int i = 0; i < size; i++)
+        {
+            this->arr[i] = -1;
+        }
     }
 
-    Hash(){
+    Hash()
+    {
         arr = new int[0];
         size = 0;
         nbr = 0;
         method = "";
-
     }
 
     ~Hash()
@@ -33,62 +36,62 @@ public:
         delete[] arr;
     }
 
-    void insertNumber(int x)
+    void insertNumber(int x, string m)
     {
         // if (nbr + 1 > size)
         //     cout << "the table is full" << endl;
         // else
         // {
-            if (method == "linear")
+        if (m == "linear")
+        {
+            int i = 0;
+            int l = 0;
+            int hash = (x % size);
+            if (arr[hash] == '\0')
             {
-                int i = 0;
-                int l = 0;
-                int hash = (x % size);
-                if (arr[hash] == '\0')
+                arr[hash] = x;
+                nbr++;
+            }
+            else
+            {
+                for (i = 0; i <= size - 1; i++)
                 {
-                    arr[hash] = x;
-                    nbr++;
-                }
-                else
-                {
-                    for (i = 0; i <= size - 1; i++)
+                    l = (hash + i) % size;
+                    if (arr[l] == '\0')
                     {
-                        l = (hash + i) % size;
-                        if (arr[l] == '\0')
-                        {
-                            arr[l] = x;
-                            nbr++;
-                            break;
-                        }
+                        arr[l] = x;
+                        nbr++;
+                        break;
                     }
                 }
-                return;
             }
-            else if (method == "quadratic")
+            return;
+        }
+        else if (m == "quadratic")
+        {
+            int i = 0;
+            int l = 0;
+            int hash = (x % size);
+            if (arr[hash] == '\0')
             {
-                int i = 0;
-                int l = 0;
-                int hash = (x % size);
-                if (arr[hash] == '\0')
+                arr[hash] = x;
+                nbr++;
+            }
+            else
+            {
+                for (i = 0; i <= size - 1; i++)
                 {
-                    arr[hash] = x;
-                    nbr++;
-                }
-                else
-                {
-                    for (i = 0; i <= size - 1; i++)
+                    l = (hash + (i * i)) % size;
+                    if (arr[l] == '\0')
                     {
-                        l = (hash + (i * i)) % size;
-                        if (arr[l] == '\0')
-                        {
-                            arr[l] = x;
-                            nbr++;
-                            break;
-                        }
+                        arr[l] = x;
+                        nbr++;
+                        break;
                     }
                 }
-                return;
             }
+            return;
+        }
         // }
     }
 
@@ -133,55 +136,63 @@ int main()
 {
     int i, p, x;
     int nbr = 0;
-    cout<< "Choose the Size of The Hash Table: " << endl;
+    cout << "Choose the Size of The Hash Table: " << endl;
     cin >> i;
-    if(i <= 0){
+    if (i <= 0)
+    {
         cout << "Enter a valid size: " << endl;
         cin >> i;
     }
     // Hash a(i , "");
-    cout<< "Choose the type of Probing you want to use: "<< endl;
-    cout<< "(1) for Linear Probing. \n(2) for Quadratic Probing." << endl;
+    cout << "Choose the type of Probing you want to use: " << endl;
+    cout << "(1) for Linear Probing. \n(2) for Quadratic Probing." << endl;
     cin >> p;
-    Hash a(i , "");
-    if(p != 1 && p != 2){
+    Hash a(i, "");
+    if (p != 1 && p != 2)
+    {
         cout << "Enter a valid option: " << endl;
         cin >> p;
-    }else if (p == 1){
-        Hash a(i , "linear");
-        while(x != -1){
-
-
+    }
+    else if (p == 1)
+    {
+        Hash a(i, "linear");
+        while (x != -1)
+        {
             cout << "Choose the value to insert: " << endl;
             cout << "Choose '-1' to stop inserting: " << endl;
             cin >> x;
-            if(x != -1){
-                 a.insertNumber(x);
-                 nbr++;
-                 if(nbr >= i){
+            if (x != -1)
+            {
+                a.insertNumber(x, "linear");
+                nbr++;
+                if (nbr >= i)
+                {
                     break;
-                 }
+                }
             }
         }
         a.displayElts();
     }
-    else if(p == 2){
-        Hash a(i , "quadratic");
-        while(x != -1){
+    else if (p == 2)
+    {
+        Hash a(i, "quadratic");
+        while (x != -1)
+        {
             cout << "Choose the value to insert: " << endl;
             cout << "Choose '-1' to stop inserting: " << endl;
             cin >> x;
-            if(x != -1){
-                a.insertNumber(x);
+            if (x != -1)
+            {
+                a.insertNumber(x, "quadratic");
                 nbr++;
-                if(nbr >= i){
+                if (nbr >= i)
+                {
                     break;
                 }
-            } 
+            }
         }
         a.displayElts();
     }
-    
-    
+
     return 0;
 }
