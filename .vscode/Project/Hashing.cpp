@@ -94,10 +94,31 @@ public:
         }
         // }
     }
+    // void displayElts()
+    // {
+    //     cout << endl;
+    //     for (int i = 0; i < size; i++)
+    //         cout << "|" << i << "|" <<arr[i] << endl;
+    // }
     void displayElts()
     {
+        cout << endl;
+        cout << endl;
+        cout << "Index:  ";
         for (int i = 0; i < size; i++)
-            cout << i << " " << arr[i] << endl;
+        {
+            cout << i << "\t";
+        }
+        cout << endl
+             << "Value:  ";
+        for (int i = 0; i < size; i++)
+        {
+            if (arr[i] == INT_MIN)
+                cout << "Empty\t";
+            else
+                cout << arr[i] << "\t";
+        }
+        cout << endl;
     }
 
     void deleteElt(int a)
@@ -106,28 +127,97 @@ public:
         {
             if (arr[i] == a)
             {
-                for (int j = i; j < size; j++)
-                    arr[j] = arr[j + 1];
+                arr[i] = INT_MIN; // Mark as deleted/empty
+                nbr--;
+                return;
             }
         }
     }
 
-    bool exists(int a)
+    int search(int a)
     {
-        for (int i = 0; i < size; i++)
-            if (arr[i] == a)
-                return true;
-        return false;
+        int index = a % this->size;
+        int i = 0;
+
+        while (arr[index] != -1 && i < size)
+        {
+            if (arr[index] == a)
+            {
+                cout << "Element " << a << " found at index " << index << "." << endl;
+                return index;
+            }
+
+            else if (method == "linear")
+            {
+                cout << "Used Linear Probing" << endl;
+                index = (index + 1) % size;
+            }
+            else if (method == "quadratic")
+            {
+                cout << "Used Quadratic Probing" << endl;
+                i++;
+                index = (index + i * i) % size;
+            }
+
+            i++;
+
+            if (i >= size)
+            {
+                cout << "Element " << a << " not found." << endl;
+                return -1;
+            }
+        }
+
+        cout << "Element" << a << " not found." << endl;
+        return -1;
+    }
+
+    void deleteElmts(int a)
+    {
+        int index = a % this->size;
+        int i = 0;
+
+        while (arr[index] != -1 && i < size)
+        {
+            if (arr[index] == a)
+            {
+                arr[index] = -1;
+                return;
+            }
+
+            else if (method == "linear")
+            {
+                cout << "Used Linear Probing" << endl;
+                index = (index + 1) % size;
+            }
+            else if (method == "quadratic")
+            {
+                cout << "Used Quadratic Probing" << endl;
+                i++;
+                index = (index + i * i) % size;
+            }
+
+            i++;
+
+            if (i >= size)
+            {
+                cout << "Element " << a << " not found." << endl;
+                return;
+            }
+        }
+
+        cout << "Element" << a << " not found." << endl;
+        return;
     }
 };
 
 int main()
 {
-    int i, p, x;
+    int i, p, x, num;
     int nbr = 0;
     cout << "Choose the Size of The Hash Table: " << endl;
     cin >> i;
-    if (i <= 0)
+    if (i < 0)
     {
         cout << "Enter a valid size: " << endl;
         cin >> i;
@@ -161,6 +251,13 @@ int main()
             }
         }
         a.displayElts();
+
+        cout << "Choose the element to search: " << endl;
+        cin >> num;
+        a.deleteElmts(num);
+        // cout << a.search(num) << endl;
+        // a.search(num);
+        a.displayElts();
     }
     else if (p == 2)
     {
@@ -181,6 +278,11 @@ int main()
             }
         }
         a.displayElts();
+
+        cout << "Choose the element to search: " << endl;
+        cin >> num;
+        cout << a.search(num) << endl;
+        // a.search(num);
     }
 
     return 0;
