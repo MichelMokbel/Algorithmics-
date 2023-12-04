@@ -92,8 +92,55 @@ public:
             }
             return;
         }
+        else if (m == "double")
+        {
+            int i = 0;
+            int l = 0;
+            int q = nearestPrime(size);
+            int hash = (x % size);
+            if (arr[hash] == -1)
+            {
+                arr[hash] = x;
+                nbr++;
+            }
+            else
+            {
+                for (i = 0; i <= size - 1; i++)
+                {
+                    l = q - (x % q);
+                    if(arr[l] == -1){
+                        arr[l] = x;
+                        nbr++;
+                        break;
+                    }
+                }
+            }
+        }
         // }
     }
+
+    bool isPrime(int n){
+        if(n <= 1) return false; // Numbers less than or equal to 1 are not prime numbers
+
+        // Check from 2 to the square root of n
+        for(int i = 2; i*i <= n; i++){
+            if(n % i == 0){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    int nearestPrime(int n){
+        n--;
+        while(n > 1){
+            if(isPrime(n)) return n;
+            n--;
+        }
+        return -1;
+    }
+
+
     // void displayElts()
     // {
     //     cout << endl;
