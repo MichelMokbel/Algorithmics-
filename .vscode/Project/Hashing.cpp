@@ -36,16 +36,20 @@ public:
         delete[] arr;
     }
 
+    /**
+     * Inserts a number into the hash table using the specified collision resolution method.
+     * 
+     * @param x The number to be inserted.
+     * @param m The collision resolution method to be used ("linear", "quadratic", or "double").
+     */
     void insertNumber(int x, string m)
     {
-        // if (nbr + 1 > size)
-        //     cout << "the table is full" << endl;
-        // else
-        // {
+
+        int i = 0;
+        int l = 0;
         if (m == "linear")
         {
-            int i = 0;
-            int l = 0;
+
             int hash = (x % size);
             if (arr[hash] == -1)
             {
@@ -69,8 +73,6 @@ public:
         }
         else if (m == "quadratic")
         {
-            int i = 0;
-            int l = 0;
             int hash = (x % size);
             if (arr[hash] == -1)
             {
@@ -94,10 +96,10 @@ public:
         }
         else if (m == "double")
         {
-            int i = 0;
-            int l = 0;
             int q = nearestPrime(size);
-            int hash = (x % size);
+            int hash1 = (x % size);
+            int hash2 = q - (x % q);
+            int hash = (hash1 + (i * hash2)) % size;
             if (arr[hash] == -1)
             {
                 arr[hash] = x;
@@ -107,8 +109,9 @@ public:
             {
                 for (i = 0; i <= size - 1; i++)
                 {
-                    l = q - (x % q);
-                    if(arr[l] == -1){
+                    l = (hash1 + (i * hash2)) % size;
+                    if (arr[l] == -1)
+                    {
                         arr[l] = x;
                         nbr++;
                         break;
@@ -116,37 +119,54 @@ public:
                 }
             }
         }
-        // }
     }
 
-    bool isPrime(int n){
-        if(n <= 1) return false; // Numbers less than or equal to 1 are not prime numbers
+    /**
+     * Checks if a number is prime.
+     * 
+     * @param n The number to be checked.
+     * @return True if the number is prime, false otherwise.
+     */
+    bool isPrime(int n)
+    {
+        if (n <= 1)
+            return false; // Numbers less than or equal to 1 are not prime numbers
 
         // Check from 2 to the square root of n
-        for(int i = 2; i*i <= n; i++){
-            if(n % i == 0){
+        for (int i = 2; i * i <= n; i++)
+        {
+            if (n % i == 0)
+            {
                 return false;
             }
         }
         return true;
     }
 
-    int nearestPrime(int n){
+    /**
+     * Finds the nearest prime number less than the given number.
+     * 
+     * @param n The number to find the nearest prime for.
+     * @return The nearest prime number less than the given number, or -1 if no prime is found.
+     */
+    int nearestPrime(int n)
+    {
         n--;
-        while(n > 1){
-            if(isPrime(n)) return n;
+        while (n > 1)
+        {
+            if (isPrime(n))
+                return n;
             n--;
         }
         return -1;
     }
 
 
-    // void displayElts()
-    // {
-    //     cout << endl;
-    //     for (int i = 0; i < size; i++)
-    //         cout << "|" << i << "|" <<arr[i] << endl;
-    // }
+    /**
+     * Displays the elements of the array.
+     * Prints the index and value of each element in the array.
+     * If an element is empty, it is displayed as "Empty".
+     */
     void displayElts()
     {
         cout << endl;
@@ -160,7 +180,7 @@ public:
              << "Value:  ";
         for (int i = 0; i < size; i++)
         {
-            if (arr[i] == INT_MIN)
+            if (arr[i] == -1)
                 cout << "Empty\t";
             else
                 cout << arr[i] << "\t";
@@ -168,19 +188,13 @@ public:
         cout << endl;
     }
 
-    void deleteElt(int a)
-    {
-        for (int i = 0; i < size; i++)
-        {
-            if (arr[i] == a)
-            {
-                arr[i] = INT_MIN; // Mark as deleted/empty
-                nbr--;
-                return;
-            }
-        }
-    }
 
+    /**
+     * @brief Searches for an element in the hash table.
+     * 
+     * @param a The element to search for.
+     * @return The index of the element if found, -1 otherwise.
+     */
     int search(int a)
     {
         int index = a % this->size;
@@ -205,20 +219,34 @@ public:
                 i++;
                 index = (index + i * i) % size;
             }
+            else if (method == "double")
+            {
+                cout << "Used Double Hashing" << endl;
+                int q = nearestPrime(size);
+                i++;
+                int hash1 = (a % size);
+                int hash2 = q - (a % q);
+                index = (hash1 + (i * hash2)) % size;
+            }
 
             i++;
 
             if (i >= size)
-            {
+            {2
                 cout << "Element " << a << " not found." << endl;
                 return -1;
             }
         }
 
-        cout << "Element" << a << " not found." << endl;
+        cout << "Element " << a << " not found." << endl;
         return -1;
     }
 
+    /**
+     * @brief Deletes an element from the hash table.
+     * 
+     * @param a The element to be deleted.
+     */
     void deleteElmts(int a)
     {
         int index = a % this->size;
@@ -243,6 +271,15 @@ public:
                 i++;
                 index = (index + i * i) % size;
             }
+            else if (method == "double")
+            {
+                cout << "Used Double Hashing" << endl;
+                int q = nearestPrime(size);
+                i++;
+                int hash1 = (a % size);
+                int hash2 = q - (a % q);
+                index = (hash1 + (i * hash2)) % size;
+            }
 
             i++;
 
@@ -253,84 +290,76 @@ public:
             }
         }
 
-        cout << "Element" << a << " not found." << endl;
+        cout << "Element " << a << " not found." << endl;
         return;
     }
 };
 
 int main()
 {
-    int i, p, x, num;
-    int nbr = 0;
-    cout << "Choose the Size of The Hash Table: " << endl;
-    cin >> i;
-    if (i < 0)
+    int tableSize, probeType, value, num, action, nbr;
+    cout << "Choose the Size of The Hash Table: ";
+    cin >> tableSize;
+    while (tableSize <= 0)
     {
-        cout << "Enter a valid size: " << endl;
-        cin >> i;
+        cout << "Enter a valid size: ";
+        cin >> tableSize;
     }
-    // Hash a(i , "");
+
     cout << "Choose the type of Probing you want to use: " << endl;
-    cout << "(1) for Linear Probing. \n(2) for Quadratic Probing." << endl;
-    cin >> p;
-    Hash a(i, "");
-    if (p != 1 && p != 2)
+    cout << "(1) for Linear Probing. \n(2) for Quadratic Probing. \n(3) for Double Hashing." << endl;
+    cin >> probeType;
+    while (probeType < 1 || probeType > 3)
     {
-        cout << "Enter a valid option: " << endl;
-        cin >> p;
+        cout << "Enter a valid option: ";
+        cin >> probeType;
     }
-    else if (p == 1)
+
+    string method = (probeType == 1) ? "linear" : (probeType == 2) ? "quadratic"
+                                                                   : "double";
+    Hash a(tableSize, method);
+
+    bool continueProgram = true;
+    while (continueProgram)
     {
-        Hash a(i, "linear");
-        while (x != -1)
+        cout << "Choose the type of action you want to perform: " << endl;
+        cout << "(1) Insert \n(2) Delete \n(3) Search \n(4) Display Hash Table \n(5) Exit" << endl;
+        cin >> action;
+
+        switch (action)
         {
-            cout << "Choose the value to insert: " << endl;
-            cout << "Choose '-1' to stop inserting: " << endl;
-            cin >> x;
-            if (x != -1)
+        case 1: // Insert
+            cout << "Enter value to insert (Enter -1 to stop inserting): ";
+            while (true && nbr < tableSize)
             {
-                a.insertNumber(x, "linear");
-                nbr++;
-                if (nbr >= i)
-                {
+                cin >> value;
+                if (value == -1)
                     break;
-                }
-            }
-        }
-        a.displayElts();
-
-        cout << "Choose the element to search: " << endl;
-        cin >> num;
-        a.deleteElmts(num);
-        // cout << a.search(num) << endl;
-        // a.search(num);
-        a.displayElts();
-    }
-    else if (p == 2)
-    {
-        Hash a(i, "quadratic");
-        while (x != -1)
-        {
-            cout << "Choose the value to insert: " << endl;
-            cout << "Choose '-1' to stop inserting: " << endl;
-            cin >> x;
-            if (x != -1)
-            {
-                a.insertNumber(x, "quadratic");
+                a.insertNumber(value, method);
                 nbr++;
-                if (nbr >= i)
-                {
-                    break;
-                }
             }
+            break;
+        case 2: // Delete
+            cout << "Enter value to delete: ";
+            cin >> num;
+            a.deleteElmts(num);
+            break;
+        case 3: // Search
+            cout << "Enter value to search: ";
+            cin >> num;
+            cout << a.search(num) << endl;
+            break;
+        case 4: // Display Hash Table
+            a.displayElts();
+            break;
+        case 5: // Exit
+            continueProgram = false;
+            break;
+        default:
+            cout << "Invalid option. Please try again." << endl;
         }
-        a.displayElts();
-
-        cout << "Choose the element to search: " << endl;
-        cin >> num;
-        cout << a.search(num) << endl;
-        // a.search(num);
     }
 
+    cout << "Exiting program." << endl;
     return 0;
 }
