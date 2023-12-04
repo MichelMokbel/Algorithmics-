@@ -181,7 +181,7 @@ public:
         for (int i = 0; i < size; i++)
         {
             if (arr[i] == -1)
-                cout << "Empty\t";
+                cout << "-\t";
             else
                 cout << arr[i] << "\t";
         }
@@ -232,7 +232,7 @@ public:
             i++;
 
             if (i >= size)
-            {2
+            {
                 cout << "Element " << a << " not found." << endl;
                 return -1;
             }
